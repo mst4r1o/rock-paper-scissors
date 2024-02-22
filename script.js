@@ -14,20 +14,36 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    console.log(playerSelection, computerSelection)
     playerSelection = playerSelection.toLowerCase();
+    computerSelection = computerSelection.toLowerCase();
 
     if (playerSelection === computerSelection) {
-        return "It's a tie! You both chose " + playerSelection;
+        console.log("It's a tie! You both chose " + playerSelection[0].toUpperCase() + playerSelection.slice(1, playerSelection.length));
+        return 0.5;
     } else if (playerSelection === "rock" && computerSelection === "scissors"
     || playerSelection === "paper" && computerSelection === "rock"
     || playerSelection === "scissors" && computerSelection === "paper") {
-        return `You win! ${playerSelection[0].toUpperCase() + playerSelection.slice(1, playerSelection.length)} beats ${computerSelection[0].toUpperCase() + computerSelection.slice(1, computerSelection.length)}`;
+        console.log(`You win! ${playerSelection[0].toUpperCase() + playerSelection.slice(1, playerSelection.length)} beats ${computerSelection[0].toUpperCase() + computerSelection.slice(1, computerSelection.length)}`);
+        return 1;
     } else {
-        return `You lose! ${computerSelection[0].toUpperCase() + computerSelection.slice(1, computerSelection.length)} beats ${playerSelection[0].toUpperCase() + playerSelection.slice(1, playerSelection.length)}`; 
+        console.log(`You lose! ${computerSelection[0].toUpperCase() + computerSelection.slice(1, computerSelection.length)} beats ${playerSelection[0].toUpperCase() + playerSelection.slice(1, playerSelection.length)}`); 
+        return 0;
     }
 }
 
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+function playGame() {
+    let score = 0;
+    for (let i = 0; i < 5; i++) {
+        score += playRound(prompt("What would you like to choose?"), getComputerChoice());
+    }
+
+    if (score >= 3) {
+        console.log("You win!");
+    } else if (score === 2.5) {
+        console.log("It's a tie!");
+    } else {
+        console.log("You lost!");
+    }
+}
+
+playGame();

@@ -31,19 +31,28 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function playGame() {
-    let score = 0;
-    for (let i = 0; i < 5; i++) {
-        score += playRound(prompt("What would you like to choose?"), getComputerChoice());
-    }
+const buttons = document.querySelectorAll("button");
 
-    if (score >= 3) {
-        console.log("You win!");
-    } else if (score === 2.5) {
-        console.log("It's a tie!");
-    } else {
-        console.log("You lost!");
-    }
-}
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        console.log(button.value);
+        playRound(button.value, getComputerChoice());
+    })
+});
 
-playGame();
+// function playGame() {
+//     let score = 0;
+//     for (let i = 0; i < 5; i++) {
+//         score += playRound(prompt("What would you like to choose?"), getComputerChoice());
+//     }
+
+//     if (score >= 3) {
+//         console.log("You win!");
+//     } else if (score === 2.5) {
+//         console.log("It's a tie!");
+//     } else {
+//         console.log("You lost!");
+//     }
+// // }
+
+// playGame();

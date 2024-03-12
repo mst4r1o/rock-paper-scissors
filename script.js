@@ -18,27 +18,38 @@ function playRound(playerSelection, computerSelection) {
     computerSelection = computerSelection.toLowerCase();
 
     if (playerSelection === computerSelection) {
-        console.log("It's a tie! You both chose " + playerSelection[0].toUpperCase() + playerSelection.slice(1, playerSelection.length));
+        results.innerText = "It's a tie! You both chose " + playerSelection[0].toUpperCase() + playerSelection.slice(1, playerSelection.length);
         return 0.5;
     } else if (playerSelection === "rock" && computerSelection === "scissors"
     || playerSelection === "paper" && computerSelection === "rock"
     || playerSelection === "scissors" && computerSelection === "paper") {
-        console.log(`You win! ${playerSelection[0].toUpperCase() + playerSelection.slice(1, playerSelection.length)} beats ${computerSelection[0].toUpperCase() + computerSelection.slice(1, computerSelection.length)}`);
+        results.innerText = `You win! ${playerSelection[0].toUpperCase() + playerSelection.slice(1, playerSelection.length)} beats ${computerSelection[0].toUpperCase() + computerSelection.slice(1, computerSelection.length)}`;
         return 1;
     } else {
-        console.log(`You lose! ${computerSelection[0].toUpperCase() + computerSelection.slice(1, computerSelection.length)} beats ${playerSelection[0].toUpperCase() + playerSelection.slice(1, playerSelection.length)}`); 
+        results.innerText = `You lose! ${computerSelection[0].toUpperCase() + computerSelection.slice(1, computerSelection.length)} beats ${playerSelection[0].toUpperCase() + playerSelection.slice(1, playerSelection.length)}`; 
         return 0;
     }
 }
 
 const buttons = document.querySelectorAll("button");
+const results = document.querySelector(".results");
+let playerPoint = 0;
+let comPoint = 0;
 
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
-        console.log(button.value);
-        playRound(button.value, getComputerChoice());
+        let point = playRound(button.value, getComputerChoice());
+        if (point === 1) playerPoint++;
+        if (point === 0) comPoint++;
+        results.innerText += `\nPlayer: ${playerPoint} | Computer: ${comPoint}`;
+
+        if (playerPoint === 5 || comPoint === 5) results.innerText += `\n${playerPoint === 5 ? "Player" : "Computer"} wins!`;
+
     })
 });
+
+
+
 
 // function playGame() {
 //     let score = 0;

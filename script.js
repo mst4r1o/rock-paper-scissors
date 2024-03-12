@@ -38,6 +38,11 @@ let comPoint = 0;
 
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
+        if (playerPoint === 5 || comPoint === 5) {
+            playerPoint = 0;
+            comPoint = 0;
+        }
+
         let point = playRound(button.value, getComputerChoice());
         if (point === 1) playerPoint++;
         if (point === 0) comPoint++;
